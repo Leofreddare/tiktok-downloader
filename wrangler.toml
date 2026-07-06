@@ -1,8 +1,7 @@
-name = "tiktok-mp3-worker"
+name = "tiktok-downloader"
 main = "src/index.js"
 compatibility_date = "2026-07-06"
-workers_dev = true
 compatibility_flags = ["nodejs_compat"]
 
-[observability]
-enabled = true
+[vars]
+CACHE_TTL_SECONDS = "604800"

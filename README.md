@@ -1,66 +1,51 @@
-# TikTok MP3 Cloudflare Worker
+# tiktok-downloader Cloudflare Worker
 
-TikTok URL in, MP3 stream out.
+Cloudflare Worker endpoint that accepts TikTok links like `vm.tiktok.com`, `vt.tiktok.com`, or `tiktok.com` and streams back an `.mp4` response.
 
-This project ports the useful part of `BOTCAHX/tiktokdl-api` to Cloudflare Workers: call the TikTok resolver, get an audio URL, and stream it back as `audio/mpeg`.
+No API key is required. No backend URL placeholder is required. The Worker uses Worker-native `fetch()` and a public TikWM lookup endpoint, then streams the returned video URL through Cloudflare.
 
-Endpoints:
+## Endpoint
 
-```text
-/mp3?url=https://vm.tiktok.com/xxxxx/
-/api?url=https://vm.tiktok.com/xxxxx/
-/health
+```txt
+/mp4?url=https://vm.tiktok.com/xxxxx/
 ```
 
-`/mp3` returns an `audio/mpeg` response.
+Also works:
 
-`/api` returns JSON like this:
-
-```json
-{
-  "ok": true,
-  "audio": ["https://...mp3"],
-  "video": ["https://...mp4"]
-}
+```txt
+/download.mp4?url=https://www.tiktok.com/@user/video/123
 ```
 
-## Run locally
+## Cloudflare Git build settings
+
+Use these exact settings:
+
+```txt
+Build command: npm install
+Deploy command: npx wrangler deploy
+Root directory: /
+```
+
+Do not use static upload. Do not use `wrangler dev` in Cloudflare.
+
+## Local commands
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then test:
+Deploy from your terminal:
 
 ```bash
-curl -L "http://localhost:8787/mp3?url=https://vm.tiktok.com/xxxxx/" -o tiktok.mp3
-```
-
-## Deploy from terminal
-
-```bash
-npm install
 npx wrangler login
-npm run deploy
+npx wrangler deploy
 ```
 
-## Deploy through Cloudflare GitHub connection
+## Test
 
-Push this folder to a GitHub repo. In Cloudflare dashboard:
+```bash
+curl -L "https://YOUR-WORKER.workers.dev/mp4?url=https://vm.tiktok.com/xxxxx/" -o tiktok.mp4
+```
 
-1. Workers & Pages
-2. Create application
-3. Worker
-4. Import a repository
-5. Pick this repo
-6. Deploy command: `npm run deploy`
-7. Build command: leave empty, or use `npm install`
-
-Cloudflare will deploy again on every push.
-
-## What it uses
-
-- `btch-downloader` first, matching the BOTCAHX repo dependency.
-- A Worker-native TikWM resolver fallback so more links work without you hosting another API.
-- Cloudflare Cache API for fast repeated requests.
+Use this only for videos you own or have permission to process.

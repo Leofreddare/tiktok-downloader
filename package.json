@@ -1,17 +1,13 @@
 {
-  "name": "tiktok-mp3-worker",
+  "name": "tiktok-downloader",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "check": "node --check src/index.js"
+    "dev": "wrangler dev"
   },
   "devDependencies": {
-    "wrangler": "^4.0.0"
-  },
-  "dependencies": {
-    "btch-downloader": "^2.3.2"
+    "wrangler": "^4.107.0"
   }
 }

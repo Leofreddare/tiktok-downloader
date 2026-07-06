@@ -1,6 +1,0 @@
-name = "tiktok-downloader"
-main = "src/index.js"
-compatibility_date = "2026-07-06"
-
-[vars]
-CACHE_TTL_SECONDS = "604800"

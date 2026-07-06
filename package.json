@@ -1,13 +1,16 @@
 {
-  "name": "tiktok-downloader",
+  "name": "tiktok_proxy",
   "version": "1.0.0",
-  "private": true,
-  "type": "module",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "wrangler": "^4.107.0"
+  "author": "Vladimir Vlasov",
+  "license": "ISC",
+  "dependencies": {
+    "http-proxy": "^1.18.1",
+    "tiktok-scraper": "^1.4.36"
   }
 }
